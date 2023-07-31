@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t faryaz/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run faryaz/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t faryaz/multi-client ./client
+  - docker build -t faryaz/multi-nginx ./nginx
+  - docker build -t faryaz/multi-server ./server
+  - docker build -t faryaz/multi-worker ./worker
