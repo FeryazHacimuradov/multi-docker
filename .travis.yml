@@ -1,12 +1,13 @@
+language: generic
 sudo: required
 services:
   - docker
 
 before_install:
-  - docker build -t faryaz/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t faryazhajimuradov/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run faryaz/react-test npm test -- --coverage
+  - docker run -e CI=true faryazhajimuradov/react-test npm run test -- --coverage
 
 after_success:
   - docker build -t faryaz/multi-client ./client
