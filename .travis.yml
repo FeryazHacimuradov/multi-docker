@@ -13,3 +13,10 @@ after_success:
   - docker build -t faryaz/multi-nginx ./nginx
   - docker build -t faryaz/multi-server ./server
   - docker build -t faryaz/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push faryaz/multi-client
+  - docker push faryaz/multi-nginx
+  - docker push faryaz/multi-server
+  - docker push faryaz/multi-worker
